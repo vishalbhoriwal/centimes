@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model ChartData {
+  id    Int    @id @default(autoincrement())
+  from  String
+  to    String
+  value Int
+}
