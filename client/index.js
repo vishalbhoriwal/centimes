@@ -6,6 +6,7 @@ import store from './redux/store';
 import Home from './pages/home.jsx';
 import './style/style.css';
 import Details from './pages/details';
+import './locales';
 
 const Root = () => {
   return (

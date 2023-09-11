@@ -10,10 +10,12 @@ import utils from '../utils';
 import Form from '../components/form';
 import { addChartData } from '../redux/reducers/addChartSlice';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-export default function Home() {
+function Home() {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(null);
+  const { t } = useTranslation();
   const { data, loading, error } = useSelector((state) => state.chartData);
   const initialState = {
     from: '',
@@ -48,15 +50,34 @@ export default function Home() {
           variant="outlined"
           aria-label="outlined button group"
         >
-          <Button style={{ textDecoration: 'none', color: 'blue' }} onClick={() => handleModal('add')}>Add</Button>
-          <Button><Link style={{ textDecoration: 'none', color: 'blue' }} to="/details">Edit</Link></Button>
-          <Button><Link style={{ textDecoration: 'none', color: 'blue' }} to="/details">Delete</Link></Button>
+          <Button
+            style={{ textDecoration: 'none', color: 'blue' }}
+            onClick={() => handleModal('add')}
+          >
+            {t('pages.home.add')}
+          </Button>
+          <Button>
+            <Link
+              style={{ textDecoration: 'none', color: 'blue' }}
+              to="/details"
+            >
+              {t('pages.home.edit')}
+            </Link>
+          </Button>
+          <Button>
+            <Link
+              style={{ textDecoration: 'none', color: 'blue' }}
+              to="/details"
+            >
+              {t('pages.home.delete')}
+            </Link>
+          </Button>
         </ButtonGroup>
         <Loader loading={loading} error={error}>
           <SankeyChart data={utils.formatData(data)} />
         </Loader>
         {modal === 'add' ? (
-          <Modal open={'add' === modal} title={'Add Node'}>
+          <Modal open={'add' === modal} title={t('pages.home.addNode')}>
             <Form
               initialState={initialState}
               onSubmit={handleAddSubmit}
@@ -68,3 +89,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
